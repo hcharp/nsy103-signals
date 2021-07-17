@@ -48,9 +48,10 @@ int main(int argc, char *argv[]) {
 
     // Le père se met en attente
     else {
+        pid_t parentid = getppid();
         sleep(5);
         // Le fils envoie SIGHUP au père
-        kill(0, SIGHUP);
+        kill(parentid, SIGHUP);
         // wait(0); // impossible pour un fils !
         // attention : lorsqu'un fils tue son père, on ne sait plus ce qu'il fait derrière
         // dangereux dans le cas de prog sur avion, drone, etc...

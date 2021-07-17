@@ -12,8 +12,8 @@
 // Action effectuée lors de la réception du signal
 void action_signal (int num) {
     if (num == SIGHUP) {
-    printf("Signal SIGHUP reçu\n");
-    exit(EXIT_SUCCESS);
+        printf("Signal SIGHUP reçu\n");
+        exit(EXIT_SUCCESS);
     }
 }
 

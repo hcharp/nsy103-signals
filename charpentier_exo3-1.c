@@ -50,8 +50,8 @@ int main(int argc, char *argv[]) {
     else {
         sleep(2);
         // Le père envoie SIGHUP au fils
-        kill(0, SIGHUP);
-        wait(0);
+        kill(pid, SIGHUP);
+        wait(NULL);
           
     }
   

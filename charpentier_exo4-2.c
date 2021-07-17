@@ -5,35 +5,28 @@
 // de fin.
 
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>
 
+
 // Action effectuée lors de la réception du signal
-void action_signal (int num, siginfo_t *expediteur) {
-
-    // int(exp);
-    if (num == SIGUSR1) {
-    printf("Signal SIGUSR1 reçu de %d\n", expediteur->si_pid);
-
-    }
+void handle_ctrl_c (int sig) {
+    printf("Signal SIGUSR1 reçu de %d\n", sig);
 }
 
-int main(int argc, char *argv[]) {
-    struct sigaction action;
-    action.sa_handler=action_signal; // warnings mais c'est pas grave
-    sigemptyset(&action.sa_mask); // Aucun signal n'est ignoré
-    action.sa_flags=SA_RESTART ; // Compatibilité BSD
-    action.sa_flags=SA_SIGINFO ; // <---- /!\ 
 
-    // Modifie l'action pour le signal SIGUSR1
-    if(sigaction(SIGUSR1,&action, NULL)==-1) {
-        printf("Impossible d'appeler sigaction\n");
-        exit(EXIT_FAILURE);
-        }
-    while(1) {
-        printf(".\n"); sleep(1);
-        }
+int main(int argc, char* argv[]) {
+    struct sigaction sa;
+    sa.sa_handler=&handle_ctrl_c; // warnings mais c'est pas grave
+    sa.sa_flags = SA_RESTART;
+    sigaction(SIGUSR1, &sa, NULL);
+
+    for (int i = 0; i < 1000; i++)
+    {
+        printf("Hélène a tjs raison !\n");
+        sleep(2);
+    }
+    
 }

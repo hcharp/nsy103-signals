@@ -10,10 +10,10 @@
 #include <signal.h>
 
 // Action effectuée lors de la réception du signal
-void action_signal (int num) {
+void action_signal (int num) { 
     if (num == SIGUSR1) {
     printf("Signal SIGUSR1 reçu\n");
-    // exit(EXIT_SUCCESS); <-- hop et comme ça, il ne se quitte pas, mais affiche juste le msg :-)
+    exit(EXIT_SUCCESS); //<-- si commenté, il ne se quitte pas, mais affiche juste le msg :-)
     }
 }
 
@@ -28,6 +28,8 @@ int main(int argc, char *argv[]) {
         printf("Impossible d'appeler sigaction\n");
         exit(EXIT_FAILURE);
         }
+
+
     while(1) {
         printf(".\n"); sleep(1);
         }
